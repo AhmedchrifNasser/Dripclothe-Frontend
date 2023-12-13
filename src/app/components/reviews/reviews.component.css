@@ -1,0 +1,163 @@
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+.mainscreen {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #DFDBE5;
+  background-image: url("src/assets/3063067.webp");
+  color: black;
+}
+
+.card {
+  width: 65%;
+  background: white;
+  position: relative;
+  float: inside;
+  align-self: center;
+  border-radius: 1.5rem;
+  box-shadow: 4px 3px 20px #3535358c;
+  display: flex;
+  flex-direction: row;
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+}
+
+.card h2 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 580;
+  font-size: 20px;
+}
+
+.inputbox {
+  padding: 0.5rem;
+  border: 1.5px solid #ccc;
+  border-radius: 0.3rem;
+  font-family: "Montserrat", sans-serif;
+  color: #615a5a;
+  font-size: 1.1rem;
+  font-weight: 500;
+  outline: none;
+}
+
+p {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 450;
+  font-family: "Montserrat", sans-serif;
+}
+
+.rightside {
+  background-color: #ffffff;
+  width: 100%;
+  border-radius: 1.5rem;
+  padding: 0.5rem 2rem 1rem 3rem;
+}
+
+.inputtext {
+  height: 80%;
+  width: 80%;
+  padding: 0.5rem;
+  border: 1.5px solid #ccc;
+  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+  border-radius: 0.3rem;
+  font-family: "Montserrat", sans-serif;
+  color: #615a5a;
+  font-size: 1.1rem;
+  font-weight: 500;
+  outline: none;
+}
+
+.button {
+  background: linear-gradient(
+    135deg, #753370 0%, #298096 100%);
+  padding: 15px;
+  border: none;
+  border-radius: 50px;
+  color: white;
+  font-weight: 500;
+  font-size: 1.2rem;
+  margin-top: 3%;
+  letter-spacing: .11rem;
+  outline: none;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+}
+
+.stars {
+  flex: 0 0 80%;
+  flex-flow: row wrap;
+}
+
+.star__label {
+  flex: 0 0 50%;
+  margin: 0;
+}
+
+.star__rating__info {
+  flex: 100%;
+  min-height: 30px;
+}
+
+.star {
+  cursor: pointer;
+  width: 40px;
+  height: auto;
+  fill: white;
+  stroke: #ccc;
+  transform: scale(0.8);
+  transition: transform 200ms ease-in-out;
+}
+
+.star path {
+  transition: fill 200ms ease-in-out, stroke 100ms ease-in-out;
+}
+
+.active {
+  fill: #ffbb00;
+}
+.stars p{
+  padding-right: 1.5rem;
+}
+.alert{
+  color: red;
+}
+
+.carousel{
+  margin-top: 2%;
+}
+.test{
+  border-color: red;
+}
+@media only screen and (max-width: 550px) {
+  .card{
+    width: 100%;
+  }
+  .carousel{
+    margin-top: 15%;
+  }
+
+}
+@media only screen and (max-width: 550px) and (max-height: 950px) and (min-height: 840px){
+
+  .mainscreen {
+    height: 75%;
+  }
+  .card{
+    height: 100%;
+  }
+
+}
+@media only screen and (max-width: 550px) and (max-height: 800px){
+
+  .mainscreen {
+    height: 100%;
+  }
+  .card{
+    height: 100%;
+  }
+
+}

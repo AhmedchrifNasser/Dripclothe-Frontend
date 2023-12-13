@@ -1,0 +1,32 @@
+<app-header></app-header>
+
+<div class="container">
+  <div id="content4">
+    <img class="style-photo" [src]="products[0].style.photo">
+  </div>
+  <div id="content5">
+    <div class="username-container" *ngFor="let product of products">
+      <a [routerLink]="['/product', product.id]">
+        <div class="profile-container">
+          <div class="profile-img">
+            <img [src]="product.style.photo" alt="Profile Picture">
+          </div>
+          <div class="profile-description">
+            <p class="user-title">{{product.name}}</p>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div id="content1">
+    <div class="text-description">
+      Choose the clothes that we could find of
+      the style that you liked. that being said ahmed said that you will go to the store you know
+    </div>
+  </div>
+
+</div>
+<div class="footer">
+  <app-footer></app-footer>
+</div>
+

@@ -1,0 +1,131 @@
+.carousel-container {
+  display: flex;
+  height: 40vh;
+  align-items: center;
+  justify-content: center
+}
+
+.image-active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60%;
+  height: 50%;
+}
+
+.testimental {
+  width: 400px;
+  height: 300px;
+  border-radius: 15px;
+  color: rgb(30, 152, 203);
+  padding: 20px;
+  margin: 5%;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 9px 12px;
+}
+
+.testimental h3 {
+  margin: 0 0 0.5rem 0;
+  color: #999;
+  font-size: 1.25rem;
+}
+
+.testimental h1 {
+  margin: 0 0 1rem 0;
+  font-size: 1.8rem;
+  letter-spacing: 0.5px;
+  color: #2b72c4;
+}
+
+.testimental p {
+  inline-size: 220px;
+  overflow-wrap:break-word;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  margin: 0 0 4.5rem 0;
+  font-size: 1.3rem;
+  line-height: 1.45;
+  color: #333;
+}
+.rating{
+  display: flex;justify-content: right;align-items: end
+}
+.rating h3{
+  font-size: 1.5rem;
+  color: black
+}
+.hidden {
+  display: none;
+}
+
+.btn-carousel {
+  position: absolute;
+  top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15%;
+  padding: 0;
+  color: #030303;
+  text-align: center;
+  cursor: pointer;
+}
+
+.main {
+  height: 60vh;
+  display: flex;
+}
+
+.leftSide {
+  background: #030303;
+  width: 15%;
+}
+
+.centerSide {
+  width: 100%;
+  align-items: center;
+}
+
+.rightSide {
+  width: 15%;
+
+}
+
+.prev {
+  font-size: 50px;background-color: #4c2e71;border-radius: 20px;color: white;cursor: pointer
+}
+.prevOpac {
+  font-size: 50px;background-color: #4c2e71;border-radius: 20px;color: white;cursor: pointer;opacity: 0.3;
+}
+.next{
+  font-size: 50px;background-color: #2b72c4;border-radius: 20px;color: white;cursor: pointer
+}
+.nextOpac{
+  font-size: 50px;background-color: #2b72c4;border-radius: 20px;color: white;cursor: pointer;opacity: 0.3;
+}
+@media only screen and (max-width: 550px) {
+  .testimental {
+    width: 230px;
+    height: 300px;
+  }
+  .next{
+    font-size: 30px;
+    margin-left: 2%;
+  }
+  .nextOpac{
+    font-size: 30px;
+    margin-left: 2%;
+    opacity: 0.3;
+  }
+  .prev{
+    font-size: 30px;
+    margin-right: 2%;
+  }
+  .prevOpac{
+    font-size: 30px;
+    margin-right: 2%;
+    opacity: 0.3;
+  }
+}

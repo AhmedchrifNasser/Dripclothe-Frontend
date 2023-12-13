@@ -1,0 +1,54 @@
+<app-header></app-header>
+<div class="container">
+  <div id="content1">
+    <div class="username-container" *ngFor="let tempCartItem of cartItems">
+      <div class="profile-container">
+        <div class="test">
+          <div id="content3">
+            <div class="profile-img">
+              <img src="https://angular.io/assets/images/tutorials/faa/example-house.jpg" alt="Profile Picture">
+            </div>
+          </div>
+          <div id="content4">
+            <div class="cart-item-description">
+              <div class="user-title">{{tempCartItem.name}}</div>
+              <div class="user-title">Size :{{tempCartItem.size.name}}</div>
+              <div class="user-title">Color :{{tempCartItem.color.name}}</div>
+              <div class="user-title">Price :{{tempCartItem.unitPrice  | currency:"USD"}}</div>
+            </div>
+          </div>
+          <div id="content5">
+            <button class="delete" (click)="removeCartItem(tempCartItem)">Delete</button>
+          </div>
+
+          <div id="content6">
+            <span class="material-icons" *ngIf="tempCartItem.quantity > 1" (click)="decrementQuantity(tempCartItem)" style="color: #4c2e71;cursor: pointer;font-size: 35px">
+              do_not_disturb_on
+            </span>
+            <span class="material-icons" *ngIf="tempCartItem.quantity == 1" style="color: #4c2e71;opacity: 0.3;font-size: 35px">
+              do_not_disturb_on
+            </span>
+            <div  class="user-title">
+              Quantity :{{tempCartItem.quantity}}
+            </div>
+            <span class="material-icons" (click)=" incrementQuantity(tempCartItem)" style="color: #2b72c4;cursor: pointer;font-size: 35px">
+              add_circle
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="content2">
+    <div>
+      <p class="product-price">Total price : {{totalPrice | currency:"USD"}}</p>
+      <p class="product-price">Shipping fees : {{shippingFee | currency:"USD"}}</p>
+    </div>
+    <button (click)="NavigateToCheckout()" class="checkout">Go to checkout</button>
+  </div>
+</div>
+
+<div class="footer">
+  <app-footer></app-footer>
+</div>
+

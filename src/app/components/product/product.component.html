@@ -1,0 +1,49 @@
+<app-header></app-header>
+<div class="container">
+  <!--<div id="content1" style="margin-top: 6%">
+    <img class="style-photo" src="assets/test.jpg">
+  </div>-->
+  <div id="content1" style="margin-top: 6%">
+    <span class="material-icons prevOpac"  *ngIf="selectedIndex <= 0">arrow_back</span>
+    <span class="material-icons prev" (click)="onPrevClick()" *ngIf="selectedIndex > 0">arrow_back</span>
+    <div *ngFor="let photo of test; let i=index" style="align-items: center;justify-content: center;display: flex;">
+      <div [ngClass]="selectedIndex === i ? '' : 'hidden'">
+        <img class="style-photo" [src]=photo.photoUrl>
+      </div>
+    </div>
+    <span class="material-icons next" (click)="onNextClick()" *ngIf="selectedIndex < this.test.length - 1">arrow_forward</span>
+    <span class="material-icons nextOpac" *ngIf="selectedIndex >= this.test.length -1">arrow_forward</span>
+  </div>
+  <div id="content2">
+    <div class="username-container">
+      <div class="profile-container">
+        <p class="product-price">{{product.price}}$</p>
+        <p class="product-name">{{product.name}}</p>
+        <p class="product-desc">{{product.description}}</p>
+      </div>
+    </div>
+    <div class="username-container">
+      <div class="profile-container">
+        <p class="sizes-colors">Sizes:</p>
+        <p class="size" *ngFor="let size of product.sizes" (click)="changeSize(size)"
+           [ngStyle]="{'border': (selectedSizeId == size.id) ? '3px solid black' : ''}">
+          {{size.name}}
+        </p>
+        <p class="colors">Colors:</p>
+        <p class="size" *ngFor="let color of product.colors" (click)="changeColor(color)"
+           [ngStyle]="{'border': (selectedColorId == color.id) ? '3px solid black' : ''}">
+          {{color.name}}
+        </p>
+      </div>
+    </div>
+    <div class="test">
+      <button (click)="addToCart(product)">Add to cart</button>
+      <button (click)="buyNow(product)" style="margin-left: 3%">Buy now</button>
+    </div>
+  </div>
+  <!--<footer>Footer</footer>-->
+</div>
+<div class="footer">
+  <app-footer></app-footer>
+</div>
+

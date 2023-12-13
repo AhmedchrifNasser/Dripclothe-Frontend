@@ -1,0 +1,96 @@
+<app-header></app-header>
+
+<div class="mainscreen">
+  <div class="card">
+    <div class="rightside">
+      <form action="">
+        <div class="typo">
+          <h1>Checkout</h1>
+          <h4 style="margin-left: 40%;color: red" *ngIf="this.typoIncorrect">
+            * Field required or it's in incorrect format
+          </h4>
+        </div>
+        <h4>Total price: {{totalPrice | currency:"USD"}}</h4>
+        <mat-stepper [linear]="false" #stepper [orientation]="orientation">
+          <!-- Customer details step -->
+          <mat-step [stepControl]="customerFormGroup" label="Customer details">
+            <form [formGroup]="customerFormGroup">
+
+              <p>Firstname</p>
+              <input formControlName="firstName" required type="text" class="inputbox" name="name" required
+              [ngClass]="{'test': (firstName!.errors?.['required'] || firstName!.errors?.['notOnlyWhiteSpace'] || firstName!.errors?.['minlength'])
+              && (firstName!.dirty || firstName!.touched)}"/>
+
+              <p>Lastname</p>
+              <input formControlName="lastName" required type="text" class="inputbox" name="name" required
+                     [ngClass]="{'test': (lastName!.errors?.['required'] || lastName!.errors?.['notOnlyWhiteSpace'] || lastName!.errors?.['minlength'])
+              && (lastName!.dirty || lastName!.touched)}"/>
+
+              <p>Email</p>
+              <input formControlName="email" required type="text" class="inputbox" name="name" required
+                     [ngClass]="{'test': (email!.errors?.['required'] || email!.errors?.['notOnlyWhiteSpace'] || email!.errors?.['pattern'])
+              && (email!.dirty || email!.touched)}"/>
+              <div class="button-container">
+                <button class="button" matStepperNext (click)="verifyCustomer()">Next</button>
+              </div>
+            </form>
+          </mat-step>
+
+          <!-- Customer address step-->
+          <mat-step [stepControl]="shippingFormGroup" label="Customer address">
+            <form [formGroup]="shippingFormGroup">
+              <p>Street</p>
+              <input formControlName="street" required type="text" class="inputbox" name="name" required
+                     [ngClass]="{'test': (shippingAddressStreet!.errors?.['required'] || shippingAddressStreet!.errors?.['notOnlyWhiteSpace'] || shippingAddressStreet!.errors?.['minlength'])
+              && (shippingAddressStreet!.dirty || shippingAddressStreet!.touched)}"/>
+
+              <p>City</p>
+              <input formControlName="city" required type="text" class="inputbox" name="name" required
+                     [ngClass]="{'test': (shippingAddressCity!.errors?.['required'] || shippingAddressCity!.errors?.['notOnlyWhiteSpace'] || shippingAddressCity!.errors?.['minlength'])
+              && (shippingAddressCity!.dirty || shippingAddressCity!.touched)}"/>
+
+              <p>Country</p>
+              <input formControlName="country" required type="text" class="inputbox" name="name" required
+                     [ngClass]="{'test': (shippingAddressCountry!.errors?.['required'] || shippingAddressCountry!.errors?.['notOnlyWhiteSpace'] || shippingAddressCountry!.errors?.['minlength'])
+              && (shippingAddressCountry!.dirty || shippingAddressCountry!.touched)}"/>
+
+              <p>Zipcode</p>
+              <input formControlName="zipCode" required type="text" class="inputbox" name="name" required
+                     [ngClass]="{'test': (shippingAddressZipCode!.errors?.['required'] || shippingAddressZipCode!.errors?.['notOnlyWhiteSpace'] || shippingAddressZipCode!.errors?.['minlength'])
+              && (shippingAddressZipCode!.dirty || shippingAddressZipCode!.touched)}"/>
+
+              <div class="button-container">
+                <button class="button" matStepperPrevious>Back</button>
+                <button class="button" matStepperNext (click)="verifyAddress()">Next</button>
+              </div>
+            </form>
+          </mat-step>
+
+          <!-- Customer payment step-->
+          <mat-step [stepControl]="paymentFormGroup">
+              <ng-template matStepLabel>Payment Information</ng-template>
+              <form [formGroup]="paymentFormGroup" id="payment-form">
+                <div id="payment-element">
+                  <!--Stripe.js injects the Payment Element-->
+                </div>
+                <!--<button id="submit">
+                  <div class="spinner hidden" id="spinner"></div>
+                  <span id="button-text">Pay now</span>
+                </button>-->
+                <div id="payment-message" class="hidden"></div>
+              </form>
+            <div class="button-container">
+              <button class="button" matStepperPrevious>Back</button>
+              <button class="button" type="button" (click)="checkout()">Pay now</button>
+            </div>
+          </mat-step>
+        </mat-stepper>
+        <p></p>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <app-footer></app-footer>
+</div>

@@ -1,0 +1,26 @@
+<div class="main">
+  <div class="centerSide">
+    <div *ngIf="reviews && reviews.length > 0" class="carousel-container">
+      <!--<img *ngIf="selectedIndex[0] != 0" class="prev" src="assets/leftarrow.png" (click)="onPrevClick()">-->
+      <span class="material-icons prev" (click)="onPrevClick()" *ngIf="selectedIndex[0] > 0">arrow_back</span>
+      <span class="material-icons prevOpac" *ngIf="selectedIndex[0] <= 0">arrow_back</span>
+      <div *ngFor="let review of reviews; let i=index" style="align-items: center;justify-content: center;display: flex;">
+        <div [ngClass]="selectedIndex.includes(i) ? 'image-active' : 'hidden'">
+          <div class="testimental">
+            <h1>{{review.firstName}}</h1>
+            <p>{{review.review}}</p>
+            <div class="rating">
+              <h3>({{review.starNumber}})</h3>
+              <img src="assets/star.svg">
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--<img class="prev" src="assets/rightarrow.png" (click)="onNextClick()" *ngIf="selectedIndex[2] != this.reviews.length - 1">-->
+      <span class="material-icons next" (click)="onNextClick()"
+            *ngIf="selectedIndex[selectedIndex.length - 1] < this.reviews.length - 1">arrow_forward</span>
+      <span class="material-icons nextOpac"
+            *ngIf="selectedIndex[selectedIndex.length - 1] >= this.reviews.length - 1">arrow_forward</span>
+    </div>
+  </div>
+</div>

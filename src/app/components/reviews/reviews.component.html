@@ -1,0 +1,50 @@
+<app-header></app-header>
+
+<div class="mainscreen" id="dashboard">
+  <div class="card">
+    <div class="rightside">
+      <h2>We appreciate your time to give us your review :</h2>
+      <h4 style="color: red" *ngIf="this.typoIncorrect">
+        * Field required or it's in incorrect format
+      </h4>
+      <form [formGroup]="reviewFormGroup">
+        <p>Firstname</p>
+        <input formControlName="firstName" required type="text" class="inputbox" name="firstName" required
+               [ngClass]="{'test': (firstName!.errors?.['required'] || firstName!.errors?.['notOnlyWhiteSpace'] || firstName!.errors?.['minlength'])
+              && (firstName!.dirty || firstName!.touched)}"/>
+
+        <p style="margin-top: 1rem">Lastname</p>
+        <input formControlName="lastName" required type="text" class="inputbox" name="lastName"
+               required [ngClass]="{'test': (lastName!.errors?.['required'] || lastName!.errors?.['notOnlyWhiteSpace'] || lastName!.errors?.['minlength'])
+              && (lastName!.dirty || lastName!.touched)}"/>
+
+        <textarea rows="5" formControlName="review" required type="text" class="inputtext" name="review"
+                  placeholder="Your review ..." required
+                  [ngClass]="{'test': (review!.errors?.['required'] || review!.errors?.['notOnlyWhiteSpace'] || review!.errors?.['minlength'])
+              && (review!.dirty || review!.touched)}"></textarea>
+
+        <!-- Rating -->
+        <div class="stars" >
+          <p>Your rating :</p>
+          <ng-container *ngFor="let star of stars; index as i" >
+            <svg class="star"  (click)='setRating(star)'
+                 width="255" height="240" viewBox="0 0 51 48">
+              <path d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z" />
+            </svg>
+          </ng-container>
+        </div>
+        <!-- Rating -->
+        <button class="button" (click)="submitReview()">Submit</button>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<div class="carousel">
+  <app-carousel-reviews></app-carousel-reviews>
+</div>
+
+<div class="footer">
+  <app-footer></app-footer>
+</div>

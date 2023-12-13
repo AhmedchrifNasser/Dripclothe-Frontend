@@ -1,0 +1,115 @@
+.banner{
+  height: 230px;
+  display: flex;
+  background-image: url("src/assets/3063067.webp");
+  background-size: 100% auto;
+}
+.card{
+  background-color: aliceblue;
+  margin-left: 15%;
+  margin-top: 2%;
+  margin-bottom: 5%;
+  width: 70%;
+  border-radius: 9px ;
+}
+.button{
+  padding: 10px;
+  border: solid 1px rgba(0,136, 169,1);
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  background: rgba(0,136, 169,1);
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-left: 20px;
+}
+input{
+  border: solid 1px rgba(0,136, 169,1);
+  padding: 10px;
+  border-radius: 5px;
+  margin-right: 4px;
+  display: inline-block;
+  width: 50%;
+
+  margin-top: 1rem;
+}
+.results {
+  display: grid;
+  column-gap: 3%;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 400px));
+  margin-top: 5%;
+  text-align: center;
+}
+
+.listing {
+  border-radius: 30px;
+  width: auto;
+  text-align: center;
+  margin-top: 5%;
+  /*box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;*/
+}
+.listing-heading {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 19px;
+  color: black;
+  text-align: center;
+  background: transparent;
+}
+.listing-photo {
+  height: 250px;
+  width: 80%;
+  object-fit: cover;
+  border-radius: 30px 30px 30px 30px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.search{
+  text-align: center;
+}
+.footer {
+  margin-top: 15%;
+}
+@media screen and (min-width: 1000px){
+  .banner{
+    height: 400px;
+  }
+  .card{
+    background-color: aliceblue;
+    margin-left: 25%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    width: 50%;
+    border-radius: 9px ;
+  }
+  input{
+    width: 30%;
+
+  }
+  .results {
+    column-gap: 80px;
+    row-gap: 50px;
+    margin-left: 5%;
+    margin-top: 3%;
+  }
+  .listing-photo {
+    height: 400px;
+    width: 100%;
+  }
+}
+@media (min-width: 500px) and (max-width: 868px) {
+  .results {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 499px) {
+  .results {
+    grid-template-columns: 1fr;
+  }
+}

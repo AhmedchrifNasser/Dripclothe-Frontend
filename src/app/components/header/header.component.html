@@ -1,0 +1,30 @@
+<section class="logo">
+  <span>DripClothe</span>
+</section>
+
+<section class="nav">
+  <ul>
+    <li>
+      <a [routerLink]="['/']">
+        Home
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['/reviews']">
+        Reviews
+      </a>
+    </li>
+    <li>
+      <a class="cta" [routerLink]="['/contact']">
+        Contact
+      </a>
+    </li>
+    <li>
+      <button (click)="NavigateToCartDetails()" mat-raised-button
+              [matBadge]="totalQuantity" matBadgePosition="before" matBadgeColor="warn">
+        {{totalPrice | currency:"USD"}}
+        <i class="material-icons" style="background:transparent;">shopping_cart</i>
+      </button>
+    </li>
+  </ul>
+</section>

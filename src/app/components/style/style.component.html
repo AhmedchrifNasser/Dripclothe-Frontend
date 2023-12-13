@@ -1,0 +1,19 @@
+<app-header></app-header>
+<div class="banner">
+  <div class="card">test</div>
+</div>
+
+<div class="browse">
+  <section class="results">
+    <section class="listing" *ngFor="let style of styles">
+      <a [routerLink]="['/detail', style.id]">
+        <img class="listing-photo" [src]="style.photo" alt="Exterior photo of {{style.id}}">
+        <h2 class="listing-heading">{{ style.styleIdByArtiste }}</h2>
+      </a>
+    </section>
+  </section>
+</div>
+
+<div class="footer">
+  <app-footer></app-footer>
+</div>
