@@ -72,8 +72,7 @@ p {
 }
 
 .button {
-  background: linear-gradient(
-    135deg, #753370 0%, #298096 100%);
+  background: linear-gradient(135deg, #590b74 35%, #298096 100%);
   padding: 15px;
   border: none;
   border-radius: 50px;
@@ -127,7 +126,7 @@ p {
 }
 
 .carousel{
-  margin-top: 2%;
+  margin-top: 5%;
 }
 .test{
   border-color: red;

@@ -3,16 +3,20 @@ import {CartItem} from "./cart-item";
 export class OrderItem {
   id!: number;
   productId!: number;
-  colorId!: number;
-  sizeId!: number;
+  productName!: string;
+  color!: string;
+  size!: string;
   price!: number;
   quantity: number;
+  photo!: string;
 
   constructor(cartItem: CartItem) {
     this.productId = cartItem.id;
-    this.colorId = cartItem.color.id;
-    this.sizeId = cartItem.size.id;
+    this.productName = cartItem.name;
+    this.color = cartItem.color.name;
+    this.size = cartItem.size.name;
     this.price = cartItem.unitPrice;
     this.quantity = cartItem.quantity;
+    this.photo = cartItem.photoUrl.photoUrl;
   }
 }

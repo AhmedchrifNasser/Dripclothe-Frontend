@@ -1,28 +1,81 @@
-<section class="logo">
-  <span>DripClothe</span>
-</section>
+<span class="web">
+ <section class="logo" [routerLink]="['/']">
+    <span>DripClothe</span>
+  </section>
+  <section class="nav">
+    <ul>
+      <li>
+        <a [routerLink]="['/']">
+          Home
+        </a>
+      </li>
+      <li>
+        <a class="list-menu" [routerLink]="['/artistes']">
+            Celebrities
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['/Track_Status']">
+          Track order
+        </a>
+      </li>
+      <li>
+        <a class="cta" [routerLink]="['/contact']">
+          Contact
+        </a>
+      </li>
+      <li>
+        <button (click)="NavigateToCartDetails()" mat-raised-button
+                [matBadge]="totalQuantity" matBadgePosition="before" matBadgeColor="warn">
+          <span class="money">{{ totalPrice | currency:"USD" }}</span>
+          <i class="material-icons" style="background:transparent;">shopping_cart</i>
+        </button>
+      </li>
+    </ul>
+  </section>
+</span>
 
-<section class="nav">
+
+<section class="test">
   <ul>
     <li>
-      <a [routerLink]="['/']">
-        Home
-      </a>
+      <div class="hamburger-icon" (click)="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <!-- Slide-Right Menu -->
+      <div class="menu-overlay" [class.open]="isMenuOpen">
+        <div class="menu-container">
+          <div class="menu-header">
+            <h3>Categories</h3>
+            <button class="close-button" (click)="toggleMenu()">&#10005;</button>
+          </div>
+          <a class="list-menu" [routerLink]="['/']">
+            Home
+          </a>
+          <a class="list-menu" [routerLink]="['/artistes']">
+            Celebrities
+          </a>
+          <a class="list-menu" [routerLink]="['/Track_Status']">
+            Track order
+          </a>
+          <a class="list-menu" [routerLink]="['/contact']">
+            Contact
+          </a>
+
+        </div>
+      </div>
     </li>
     <li>
-      <a [routerLink]="['/reviews']">
-        Reviews
-      </a>
-    </li>
-    <li>
-      <a class="cta" [routerLink]="['/contact']">
-        Contact
-      </a>
+      <section class="logo" [routerLink]="['/']">
+        <span>DripClothe</span>
+      </section>
     </li>
     <li>
       <button (click)="NavigateToCartDetails()" mat-raised-button
-              [matBadge]="totalQuantity" matBadgePosition="before" matBadgeColor="warn">
-        {{totalPrice | currency:"USD"}}
+              [matBadge]="totalQuantity" matBadgePosition="before" matBadgeColor="warn" style="align-items: end;">
+        <span class="money">{{ totalPrice | currency:"USD" }}</span>
         <i class="material-icons" style="background:transparent;">shopping_cart</i>
       </button>
     </li>

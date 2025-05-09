@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ProductService} from "../../services/product.service";
 import {ActivatedRoute, ParamMap} from "@angular/router";
 import {Product} from "../../models/product";
+import {Location} from "@angular/common";
+import {Meta, Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-style-detail',
@@ -9,15 +11,22 @@ import {Product} from "../../models/product";
   styleUrls: ['./style-detail.component.css']
 })
 export class StyleDetailComponent implements OnInit{
-  link: string = "https://angular.io/assets/images/tutorials/faa/example-house.jpg";
   constructor(private productService:ProductService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private _location: Location,
+              private titleService: Title,
+              private metaTagService: Meta) {
   }
   styleId!: number;
-  products!: Product[];
+  products: Product[] = [];
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.styleId = +params.get('styleId')!;
+      this.titleService.setTitle("DripClothe - " + params.get('artisteName')! + " style");
+      this.metaTagService.updateTag({
+        name: 'description',
+        content: `Discover handpicked outfits inspired by ${params.get('artisteName')}! Explore the latest styles and find your perfect match among our curated selection of ${params.get('artisteName')}'s fashion.`
+      });
     });
     this.listStyleProducts();
   }
@@ -25,12 +34,10 @@ export class StyleDetailComponent implements OnInit{
     this.productService.getProductsByStyle(this.styleId).subscribe(
       (res)=> {
         this.products = res;
-        console.log(this.products)
       }
     )
   }
-
-  navigateToProductDetail(id: number) {
-
+  backClicked() {
+    this._location.back();
   }
 }

@@ -1,0 +1,25 @@
+<!--
+<div class="mainscreen">
+  <div class="card">
+    <div class="rightside">
+      <h2>We are happy to hear from you !!</h2>
+      <h4 style="color: red" *ngIf="this.typoIncorrect">
+        * Field required or it's in incorrect format
+      </h4>
+      <form [formGroup]="contactFormGroup">
+        <p>Email</p>
+        <input formControlName="email" required type="text" class="inputbox" placeholder="Your email ..." name="email" required
+               [ngClass]="{'test': (email!.errors?.['required'] || email!.errors?.['notOnlyWhiteSpace'] || email!.errors?.['pattern'])
+              && (email!.dirty || email!.touched)}"/>
+
+        <p>Message</p>
+        <textarea rows="9" formControlName="message" required type="text" class="inputtext" name="message" placeholder="Your message ..." required
+                  [ngClass]="{'test': (message!.errors?.['required'] || message!.errors?.['notOnlyWhiteSpace'] || message!.errors?.['minlength'])
+              && (message!.dirty || message!.touched)}"></textarea>
+
+      </form>
+      <button (click)="submitContact()">Submit</button>
+    </div>
+  </div>
+</div>
+-->

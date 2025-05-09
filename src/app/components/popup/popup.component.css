@@ -1,8 +1,13 @@
 .popup{
   width: 550px;
   padding-bottom: 10px;
-  font-family: "Montserrat", sans-serif;
   text-align: center;
+}
+.nav{
+  list-style: none;
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
 }
 .popup h3{
   font-size: 15px;
@@ -11,10 +16,10 @@
   padding-bottom: 20px;
   padding-left: 20px;
   text-align: left;
+  font-family: monospace ;
 }
 .popup button{
-  background: linear-gradient(
-    135deg, #753370 0%, #298096 100%);
+  background: linear-gradient(135deg, #590b74 35%, #298096 100%);
   padding: 13px;
   border: none;
   border-radius: 50px;
@@ -37,8 +42,9 @@
 
 @media only screen and (max-width: 550px) {
   .popup{
-    width: 250px;
-    height: 280px;
+    width: 311px;
+    height: 201px;
   }
+
 }
 

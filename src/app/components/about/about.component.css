@@ -1,5 +1,4 @@
 .mainscreen {
-  height: 80%;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -29,4 +28,38 @@
   font-weight: 600;
   font-size: 20px;
   font-family: "Montserrat", sans-serif;
+}
+
+h1 {
+  text-align: center;
+  margin: 0;
+}
+
+section {
+  padding: 10px;
+  margin: 10px 0;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+h2 {
+  color: #333;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  margin: 10px 0;
+}
+
+a {
+  color: #77aaff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }

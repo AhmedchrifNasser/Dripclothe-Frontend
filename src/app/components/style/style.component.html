@@ -1,19 +1,29 @@
-<app-header></app-header>
+<!--
 <div class="banner">
-  <div class="card">test</div>
+  <div class="card">
+    <img src="../../../assets/group1.png">
+  </div>
 </div>
-
-<div class="browse">
+-->
+<div style="margin-top: 20px">
+  <div class="artisteHeader" *ngIf="styles.length > 0"> Styles of {{styles[0].artiste.name}} :</div>
+</div>
+<div class="browse"  style="min-height: 50rem">
   <section class="results">
     <section class="listing" *ngFor="let style of styles">
-      <a [routerLink]="['/detail', style.id]">
-        <img class="listing-photo" [src]="style.photo" alt="Exterior photo of {{style.id}}">
+      <a [routerLink]="['/detail', style.id,this.artisteName]">
+          <img class="listing-photo" [src]="style.photo" width="400" height="200" alt="{{style.artiste.name}} style">
         <h2 class="listing-heading">{{ style.styleIdByArtiste }}</h2>
       </a>
     </section>
   </section>
 </div>
-
-<div class="footer">
-  <app-footer></app-footer>
+<div class="pagination-buttons">
+  <button
+    *ngFor="let page of [].constructor(totalPages); let i = index"
+    [class.active]="i === currentPage"
+    (click)="goToPage(i)"
+  >
+    {{ i + 1 }}
+  </button>
 </div>

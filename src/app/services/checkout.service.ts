@@ -4,6 +4,7 @@ import {Purchase} from "../models/purchase";
 import {Observable} from "rxjs";
 import {environment} from "../../environments/environment";
 import {PaymentInfo} from "../models/payment-info";
+import {PurchaseResponse} from "../models/purchase-response";
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,12 @@ export class CheckoutService {
   constructor(private httpClient: HttpClient) { }
 
   placeOrder(purchase: Purchase): Observable<any> {
-    return this.httpClient.post<Purchase>(`${this.baseUrl}/checkout/purchase`,purchase);
+    return this.httpClient.post<PurchaseResponse>(`${this.baseUrl}/checkout/purchase`,purchase);
   }
+
+  /*createPaymentIntent(paymentInfo: PaymentInfo): Observable<any>{
+    return this.httpClient.post<PaymentInfo>(`${this.baseUrl}/checkout/payment-intent`,paymentInfo);
+  }*/
 
   createPaymentIntent(paymentInfo: PaymentInfo): Observable<any>{
     return this.httpClient.post<PaymentInfo>(`${this.baseUrl}/checkout/payment-intent`,paymentInfo);

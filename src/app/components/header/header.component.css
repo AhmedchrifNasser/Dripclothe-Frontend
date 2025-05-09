@@ -1,24 +1,24 @@
-* {
-  margin: 0;
-  padding: 0;
+.test{
+  display: none !important;
 }
-:host{
-  display: block;
+.web{
+  align-items: anchor-center;
+  height: 50px;
+  display: flex;
   color: white;
-  background-color: #24252A;
+  background-color: #09090a;
   padding: 1rem 0;
-  height: 80px;
 }
 .logo{
-  font-family: "Montserrat", sans-serif;
-  width: 130px;
-  padding: 8px;
-  margin: 5px;
+  cursor: pointer;
+  font-family: "Arial", sans-serif;
+  padding: 15px;
   font-weight: 600;
   text-align: left;
-  font-size: 22px;
-  background: linear-gradient(
-    135deg, #753370 0%, #298096 100%);
+  font-size: 33px;
+  background: linear-gradient(135deg, #590b74 35%, #298096 100%);
+  border-radius: 4px;
+  margin-right: auto;
 }
 .nav ul{
   list-style: none;
@@ -35,12 +35,18 @@
 }
 .nav li a {
   transition: all 0.3s ease 0s;
+  font-family: monospace;
+  font-size: 15px;
+  color: #edf0f1;
+  text-decoration: none;
+  font-weight: normal;
 }
+
 .nav li a:hover {
   color: #0088a9;
 }
-li, a, button {
-  font-family: "Montserrat", sans-serif;
+li, button {
+  font-family: monospace;
   font-weight: 500;
   font-size: 16px;
   color: #edf0f1;
@@ -52,9 +58,8 @@ button:hover {
 
 button{
   color: #edf0f1;
-  padding: 9px 25px;
-  background: linear-gradient(
-    135deg, #753370 0%, #298096 100%);
+  padding: 7px 16px;
+  background: linear-gradient(135deg, #590b74 35%, #298096 100%);
   border: none;
   border-radius: 50px;
   cursor: pointer;
@@ -64,26 +69,140 @@ button{
   display: flex;
 }
 @media screen and (min-width: 1000px){
-  :host{
-    height: 50px;
-    display: flex;
-    justify-content: flex-end;
-  }
-  .logo{
-    margin-left: 3rem;
-    text-align: left;
-    margin-right: auto;
-    font-family: "Montserrat", sans-serif;
-  }
-  .nav{
-    list-style: none;
-  }
-  .nav ul{
-  }
   .nav li{
     display:inline-block;
     padding-right: 30px;
     padding-top: 6px;
     margin-right: 3rem;
   }
+
+}
+@media (max-width: 499px) {
+  .test{
+    display: block !important;
+    background-color: #09090a;
+    padding: 1rem 0;
+  }
+  .web{
+    display: none !important;
+  }
+  :host{
+    display: block;
+    height: auto;
+  }
+  .logo {
+    font-size: 20px;
+  }
+  .nav{
+    padding-top: 1rem;
+  }
+  .nav li a {
+    font-size: 16px !important;
+  }
+  .money{
+    display: none;
+  }
+  .mat-badge-medium.mat-badge-overlap.mat-badge-before .mat-badge-content {
+    left: -6px;
+  }
+  .mat-badge-medium.mat-badge-above .mat-badge-content {
+    top: -8px;
+  }
+  .mat-badge-medium .mat-badge-content {
+    width: 17px;
+    height: 17px;
+    line-height: 19px;
+  }
+  .test ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Distributes items evenly */
+    font-size: 1.5rem;
+    color: white;
+    padding: 0;
+    margin: 0;
+  }
+
+  .test li {
+    text-align: center; /* Centers text for middle item */
+  }
+  .test li  button {
+    padding: 7px 10px;
+
+  }
+  .test li:first-child {
+    text-align: left;
+    margin-left: 5%;
+  }
+
+  .test li:last-child {
+    text-align: right;
+    margin-right: 5%;
+  }
+  .hamburger-icon {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .hamburger-icon span {
+    width: 25px;
+    height: 3px;
+    background: white;
+    border-radius: 2px;
+  }
+  .material-icons{
+    font-size: 22px;
+  }
+}
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: -100%; /* Initially off-screen */
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  display: flex;
+  align-items: flex-start;
+  transition: left 0.3s ease; /* Smooth slide-in effect */
+}
+
+.menu-overlay.open {
+  left: 0; /* Slide in from the left */
+}
+.menu-container {
+  width: 75%; /* Slide menu width (adjust as needed) */
+  max-width: 400px;
+  height: 100%;
+  background: white;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  padding: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+/* Menu Header */
+.menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #ddd;
+  background: #f8f8f8;
+  font-family: Arial, sans-serif;
+}
+
+.menu-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #333;
+}
+.list-menu{
+  padding: 20px 20px 20px 50px;
+  font-family: monospace;
+  font-size: 20px;
+  text-decoration: none;
+  font-weight: normal;
+  color: black;
 }

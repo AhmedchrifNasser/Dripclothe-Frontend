@@ -1,12 +1,23 @@
 .container {
+  min-height: 50rem;
   display: grid;
   grid-template-columns: 2.8fr 2.1fr;
-  grid-template-rows: 0.1fr 1.5fr;
+  grid-template-rows: 0.3rem 1.5fr;
   grid-template-areas:
     "nav nav "
     "content1 content2 "
     "content1  content2";
   grid-gap: 0.2rem;
+}
+.artisteHeader1{
+  font-weight: 600;
+  font-size: 30px;
+  color: black;
+  padding-bottom: 15px;
+  padding-top: 15px;
+  background: transparent;
+  cursor: pointer;
+  padding-left: 60px;
 }
 .test {
   display: grid;
@@ -28,7 +39,6 @@
   grid-area: content2;
   border-radius: var(--main-radius);
   padding-top: var(--main-padding);
-  margin-top: 10%;
 }
 #content3 {
   grid-area: content3;
@@ -81,9 +91,122 @@ footer {
   width: 700px;
   margin-left: 2%;
 }
+.shippingCard{
+  height: 600px;
+  width: 470px;
+  margin-left: 5%;
+}
+.shippingHeader{
+  border-radius: 20px 20px 0 0;
+  color: white;
+  font-weight: normal;
+  font-size: 1.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #590b74 35%, #298096 100%);
+  height: 13%;
+}
+.totalPrice{
+  border-radius: 0 0 20px 20px;
+  color: black;
+  font-weight: normal;
+  font-size: 1.5em;
+  padding: 5%;
+  height: 25%;
+  border: solid;
+  border-top-width: 2px;
+  border-right-color: #298096;
+  border-left-color: #590b74;
+  border-bottom-color: #590b74;
+}
+.totalPrice h3 h2 {
+  margin: 0 0 0 !important;
+}
+.shippingStandard{
+  color: black;
+  font-weight: lighter;
+  font-size: 1.3em;
+  padding-top: 1%;
+  height: 24%;
+  border-right-style: solid ;
+  border-right-color: #298096;
+  border-left-style: solid;
+  border-left-color: #590b74;
+}
+.shippingStandardDesc{
+  font-size: 0.8em;
+  padding-top: 5%;
+  padding-bottom: 1%;
+  display: flex;
+  align-items: center;
+}
+.border{
+  cursor: pointer;
+  padding: 3%;
+  margin: 2%;
+  border-radius: 10px;
+  border: 1px solid whitesmoke;
+  outline: solid #4c2e71;
+  transition: background-color 0.3s ease;
+}
+.border:hover {
+  background-color: #ffffff; /* Light gray background on hover */
+}
+.line-text {
+  margin-right: 25%; /* Adds space between the text and the circle */
+}
+.ShippingPrice{
+  font-weight: lighter;
+  font-size: 0.8em;
+}
+.inner-circle {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: #380b6e;
+}
 
-
-
+.outer-circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+  border: 2px solid #380b6e;
+}
+.custom-search {
+  position: relative;
+  width: 300px;
+  margin-left: 15%;
+}
+.custom-search-input {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 100px;
+  padding: 10px 100px 10px 20px;
+  line-height: 1;
+  box-sizing: border-box;
+  outline: none;
+  font-size: 0.9em;
+}
+.custom-search-botton {
+  cursor: pointer;
+  position: absolute;
+  right: 3px;
+  top: 3px;
+  bottom: 3px;
+  border: 0;
+  background: #380b6e;
+  color: #fff;
+  outline: none;
+  margin: 0;
+  padding: 0 10px;
+  border-radius: 100px;
+  z-index: 2;
+  font-size: 0.8em;
+}
 .profile-description {
   width: 120px;
   margin-top: 10px;
@@ -95,10 +218,6 @@ footer {
   height: 100px;
   overflow: hidden;
 }
-.cart-item-description{
-
-
-}
 .profile-img img {
   width: 100%;
   height: 100%;
@@ -109,12 +228,12 @@ footer {
   color: black;
   font-weight: bold;
   font-size: 1.2em;
-  font-family: "Montserrat", sans-serif;
+  padding-bottom: 4px;
 }
 .delete {
   color: #edf0f1;
   padding: 9px 25px;
-  background-color: red !important;
+  background-color: #ea3737 !important;
   border: none;
   border-radius: 50px;
   cursor: pointer;
@@ -124,41 +243,37 @@ footer {
   height: 50px;
   font-weight: normal;
   font-size: 15px;
-  font-family: "Montserrat", sans-serif;
 }
 
 .checkout {
   color: #edf0f1;
   padding: 9px 25px;
-  background: linear-gradient(
-    135deg, #753370 0%, #298096 100%);
+  background: linear-gradient(135deg, #590b74 35%, #298096 100%);
   border: none;
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.3s ease 0s;
-  font-family: "Montserrat", sans-serif;
   font-weight: 500;
   font-size: 20px;
-  text-decoration: none;
-  margin-top: 7%;
+  margin-top: 3%;
 }
 .product-price {
   color: black;
   font-weight: 600;
   font-size: 35px;
-  font-family: "Montserrat", sans-serif;
   line-height: 100%;
 }
 #content2 .product-price{
   padding-top: 5%;
 }
 .footer{
-  margin-top: 15%;
+  margin-top: 5%;
 }
 @media only screen and (max-width: 550px) {
   .container {
-    grid-template-columns: 1fr;
-    grid-template-rows: 2.2fr 1.2fr;
+    min-height: 80rem;
+    grid-template-columns: 1.1fr;
+    grid-template-rows: 1.3fr 1.5fr;
     grid-template-areas:
       "content1"
       "content2";
@@ -176,6 +291,7 @@ footer {
     grid-gap: 0.2rem;
   }
   .username-container {
+    margin-bottom: 5%;
     height: 490px;
     width: 300px;
     align-self: center;
@@ -189,6 +305,10 @@ footer {
     width: 200px;
     height: 200px;
 
+  }
+  .shippingCard{
+    width: 400px;
+    margin-left: 0%;
   }
   .footer{
     margin-top: 5%;

@@ -1,18 +1,17 @@
-<app-header></app-header>
 <div class="container">
-  <!--<div id="content1" style="margin-top: 6%">
-    <img class="style-photo" src="assets/test.jpg">
-  </div>-->
-  <div id="content1" style="margin-top: 6%">
-    <span class="material-icons prevOpac"  *ngIf="selectedIndex <= 0">arrow_back</span>
-    <span class="material-icons prev" (click)="onPrevClick()" *ngIf="selectedIndex > 0">arrow_back</span>
-    <div *ngFor="let photo of test; let i=index" style="align-items: center;justify-content: center;display: flex;">
-      <div [ngClass]="selectedIndex === i ? '' : 'hidden'">
-        <img class="style-photo" [src]=photo.photoUrl>
+  <div id="content1">
+
+      <span class="material-icons prevOpac"  *ngIf="selectedIndex <= 0">arrow_back</span>
+      <span class="material-icons prev" (click)="onPrevClick()" *ngIf="selectedIndex > 0">arrow_back</span>
+      <div *ngFor="let photo of test; let i=index" style="align-items: center;justify-content: center;display: flex;">
+        <div [ngClass]="selectedIndex === i ? '' : 'hidden'">
+          <img class="style-photo" [src]=photo.photoUrl>
+        </div>
       </div>
-    </div>
-    <span class="material-icons next" (click)="onNextClick()" *ngIf="selectedIndex < this.test.length - 1">arrow_forward</span>
-    <span class="material-icons nextOpac" *ngIf="selectedIndex >= this.test.length -1">arrow_forward</span>
+      <span class="material-icons next" (click)="onNextClick()" *ngIf="selectedIndex < this.test.length - 1">arrow_forward</span>
+      <span class="material-icons nextOpac" *ngIf="selectedIndex >= this.test.length -1">arrow_forward</span>
+
+
   </div>
   <div id="content2">
     <div class="username-container">
@@ -31,7 +30,7 @@
         </p>
         <p class="colors">Colors:</p>
         <p class="size" *ngFor="let color of product.colors" (click)="changeColor(color)"
-           [ngStyle]="{'border': (selectedColorId == color.id) ? '3px solid black' : ''}">
+           [ngStyle]="{'background-color': color.name,'border': (selectedColorId == color.id) ? '3px solid black' : ''}">
           {{color.name}}
         </p>
       </div>
@@ -41,9 +40,5 @@
       <button (click)="buyNow(product)" style="margin-left: 3%">Buy now</button>
     </div>
   </div>
-  <!--<footer>Footer</footer>-->
-</div>
-<div class="footer">
-  <app-footer></app-footer>
 </div>
 

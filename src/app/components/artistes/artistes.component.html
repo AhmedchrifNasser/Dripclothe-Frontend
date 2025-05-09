@@ -1,0 +1,52 @@
+<app-banner></app-banner>
+
+<div id="content" class="search">
+  <section>
+    <form>
+      <input (search)="control.setValue('');clear()" type="search" [formControl]="control" [matAutocomplete]="auto"
+             placeholder="Search by artiste name">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let artisteName of filteredArtisteName | async" [value]="artisteName"
+                    (click)="filterArtisteByName(artisteName)">
+          {{ artisteName }}
+        </mat-option>
+      </mat-autocomplete>
+    </form>
+  </section>
+</div>
+<div id="mySidenav" class="sidenav">
+  <a class="closebtn" (click)="closeNav()">&times;</a>
+  <h2 class="title" style="">Celebrities</h2>
+  <section *ngFor="let artiste of filteringArtistes">
+    <a [routerLink]="['/style', artiste.id,artiste.name]">
+      {{ artiste.name }}
+    </a>
+  </section>
+</div>
+<div class="listArtiste">
+  <a class="artisteHeader" id="main" (click)="openNav()">&#9776;</a>
+</div>
+<section class="results">
+  <section class="listing" *ngFor="let artiste of filteringArtistes">
+    <a [routerLink]="['/style', artiste.id,artiste.name]">
+      <img class="listing-photo" [src]="artiste.photo" width="400" height="200" alt="{{artiste.name}} photo">
+      <h2 class="listing-heading">{{ artiste.name }}</h2>
+    </a>
+  </section>
+</section>
+
+<div class="pagination-buttons">
+  <button
+    *ngFor="let page of [].constructor(totalPages); let i = index"
+    [class.active]="i === currentPage"
+    (click)="goToPage(i)"
+  >
+    {{ i + 1 }}
+  </button>
+</div>
+<!--
+<div style="margin-top: 10%;">
+  <h1 class="reviews">Check reviews</h1>
+  <app-carousel-reviews></app-carousel-reviews>
+</div>
+-->

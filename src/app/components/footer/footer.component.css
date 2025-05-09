@@ -7,7 +7,7 @@
     "logo paymentMethods space socialIcons about"
     "copyright copyright copyright copyright copyright";
   grid-gap: 0.2rem;
-  background: #24252A;
+  background: #09090a;
   font-size: 20px;
   color: #ffffff;
   font-family: "Montserrat", sans-serif;
@@ -17,15 +17,15 @@
   font-family: "Montserrat", sans-serif;
   width: 100%;
   height: 12%;
-  padding: 23px 8px 9px 15px;
+  padding: 26px 17px;
   margin-left:5%;
   font-weight: 600;
   display: flex;
   text-align: center;
   justify-content: center;
   font-size: 40px;
-  background: linear-gradient(
-    135deg, #753370 0%, #298096 100%);
+  background: linear-gradient(135deg, #590b74 35%, #298096 100%);
+  border-radius: 4px;
   margin-top: 10%;
 }
 
@@ -52,14 +52,17 @@
 }
 #logo {
   grid-area: logo;
-  border-radius: var(--main-radius);
+
   padding-top: var(--main-padding);
 
 }
 .text{
-  font-weight: 500;
-  font-size: 16px;
-  margin-top: 100px;
+  font-family: "Arial", sans-serif;
+  font-size: 19px;
+  color: #edf0f1;
+  text-decoration: none;
+  font-weight: normal;
+  margin-top: 120px;
 }
 .socials{
   width: 100%;
@@ -69,10 +72,10 @@
   margin-left: 10%
 }
 .social-icons{
-  background-color: #24252A;border-radius: 30px;margin-left: 2rem
+  background-color: #09090a;border-radius: 30px;margin-left: 2rem
 }
 .payment-icons{
-  background-color: #24252A;margin-left: 2rem
+  background-color: #09090a;margin-left: 2rem
 }
 a {
   text-decoration: none;
@@ -82,7 +85,7 @@ a {
   .container {
     height: 80vh;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 2fr 2.2fr 4.2fr ;
+    grid-template-rows: 1fr 0.7fr 2.2fr 2.2fr ;
     grid-template-areas:
       "logo"
       "about"
@@ -102,8 +105,8 @@ a {
   .test{
     font-family: "Montserrat", sans-serif;
     width: 50%;
-    height: 40%;
-    padding: 23px 29px 20px 29px;
+    height: 26%;
+    padding-right: 4%;
     margin-top: 2%;
     margin-left: 21%;
   }

@@ -1,0 +1,9 @@
+.container{
+  min-height: 102vh;
+  display: contents;
+  flex-direction: column;
+  font-family: monospace !important;
+}
+.footer{
+  margin: auto 0;
+}

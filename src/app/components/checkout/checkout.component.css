@@ -1,5 +1,4 @@
 body {
-  font-family: "Montserrat", sans-serif !important;
   margin:0;
   padding:0;
   box-sizing: border-box;
@@ -28,7 +27,6 @@ body {
   flex-direction: row;
   margin-top: 3rem;
   margin-bottom: 3rem;
-  font-family: "Montserrat", sans-serif;
 }
 
 .leftside {
@@ -60,7 +58,6 @@ p{
   font-size: 1.1rem;
   font-weight: 400;
   margin: .8rem 0;
-  font-family: "Montserrat", sans-serif;
 }
 
 .inputbox
@@ -73,7 +70,6 @@ p{
   border-bottom: 1.5px solid #ccc;
   margin-bottom: 1rem;
   border-radius: 0.3rem;
-  font-family: 'Roboto', sans-serif;
   color: #615a5a;
   font-size: 1.1rem;
   font-weight: 500;
@@ -81,9 +77,7 @@ p{
 }
 
 .button{
-  background: linear-gradient(
-    135deg
-    , #753370 0%, #298096 100%);
+  background: linear-gradient(135deg, #590b74 35%, #298096 100%);
   padding: 15px;
   border: none;
   border-radius: 50px;
@@ -95,12 +89,10 @@ p{
   letter-spacing: .11rem;
   outline:none;
   cursor: pointer;
-  font-family: "Montserrat", sans-serif;
 }
 
 .rightside h1, h4 {
   margin-left: 10px;
-  font-family: "Montserrat", sans-serif;
 }
 .footer {
   margin-top: 5%;
@@ -108,7 +100,6 @@ p{
 .typo{
   width: 100%;
   display: flex;
-  font-family: "Montserrat", sans-serif;
 }
 @media only screen and (max-width: 555px) {
   .card{
@@ -127,7 +118,7 @@ p{
     flex-direction: column;
   }
   .footer {
-    margin-top: 15%;
+    margin-top: 0%;
   }
   .button{
     width: 38%;
@@ -171,9 +162,6 @@ p{
   margin-bottom: 24px;
 }
 
-/* Buttons and links */
-
-/* spinner/processing state, errors */
 .spinner,
 .spinner:before,
 .spinner:after {

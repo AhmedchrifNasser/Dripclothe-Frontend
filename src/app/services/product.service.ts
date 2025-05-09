@@ -17,4 +17,18 @@ export class ProductService {
   public getProductById(productId: number):Observable<Product>{
     return this.httpClient.get<Product>(`${this.baseUrl}/product/${productId}`);
   }
+  public getProductsByCategory(categoryName: String):Observable<Product[]>{
+    return this.httpClient.get<Product[]>(`${this.baseUrl}/product/category/${categoryName}`);
+  }
+  public getProductsBySubCategory(subCategoryName: String):Observable<Product[]>{
+    return this.httpClient.get<Product[]>(`${this.baseUrl}/product/subCategory/${subCategoryName}`);
+  }
+  public getProductsBySubCategory1(subCategory1Name: String):Observable<Product[]>{
+    return this.httpClient.get<Product[]>(`${this.baseUrl}/product/subCategory1/${subCategory1Name}`);
+  }
+  public getProductsBySubCategory2(subCategory2Name: String):Observable<Product[]>{
+    return this.httpClient.get<Product[]>(`${this.baseUrl}/product/subCategory2/${subCategory2Name}`);
+  }
+
+
 }

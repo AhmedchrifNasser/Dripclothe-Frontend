@@ -1,0 +1,286 @@
+:host{
+  font-family: monospace;
+}
+.top-nav {
+  display: flex;
+  margin-left: 20px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.top-nav button {
+  background-color: #fff;
+  border: 2px solid #fff;
+  color: #121212;
+  padding: 12px 19px;
+  font-size: 19px;
+  cursor: pointer;
+  /*border-radius: 10px;*/
+  margin: 0 10px;
+  transition: 0.3s;
+}
+
+.top-nav button.active {
+  background-color: #121212;
+  color: white;
+}
+.top-nav button:hover {
+  background-color: #121212;
+  color: white;
+}
+
+/* Layout Container */
+.container {
+  display: flex;
+  margin: 0 auto;
+  padding: 20px;
+  justify-content: flex-start;
+}
+
+/* Left Sidebar: Categories */
+.categories-menu {
+  display: flex; background-color: #fff;
+  color: #121212;
+  font-size: 19px;
+  cursor: pointer;align-items: center;
+  margin-left: 10%;
+}
+
+.categories-menu div:hover{
+  border-bottom: 2px solid #000000;
+}
+
+/* Right Sidebar: Products */
+.products {
+  width: 80%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(282px, 1fr));
+  gap: 20px;
+}
+
+.product {
+  /*background-color: #1e1e1e;*/
+  height: 28rem;
+  border-radius: 10px;
+  padding: 15px;
+  /*box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);*/
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product img {
+  height: 75%;
+  width: 100%;
+  border-radius: 10px;
+  object-fit: contain;
+}
+
+.product-details {
+  padding-top: 15px;
+}
+
+.product-details h3 {
+  font-size: 20px;
+  margin: 0 0 10px;
+}
+
+.product-details p {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.product-description{
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* Limit to 2 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden; /* Hide overflowing content */
+  text-overflow: ellipsis;
+}
+
+.product-price {
+  font-size: 1.1em;
+  font-weight: bold;
+
+}
+
+/* Hover Effect */
+.product:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    padding: 3px;
+  }
+
+  .products {
+    grid-template-columns: repeat(2, 49%);
+    width: 100%;
+    margin-top: 20px;
+    gap: 5px;
+  }
+  .product{
+    height: fit-content;
+    padding: 0px;
+  }
+  .product-details h3, p{
+    margin-bottom: 0px;
+    font-size: 16px;
+  }
+  .top-nav {
+    flex-direction: column;
+    align-items: center;
+  }
+  .top-nav button{
+    padding: 7px 14px;
+    font-size: 15px;
+  }
+  .tree{
+    display: none !important;
+  }
+  .mobile{
+    display: block !important;
+  }
+}
+.mobile{
+  display: none;
+}
+.tree {
+  font-size: 16px;
+  color: #333;
+  line-height: 1.8;
+  margin-left: 2%;
+  margin-right: 5%;
+  margin-top: 2%;
+}
+
+.tree ul {
+  list-style: none; /* Remove bullet points */
+  margin: 0;
+  padding-left: 20px; /* Indent child nodes */
+}
+
+.tree li {
+  margin: 5px 0;
+}
+
+.tree .node {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.tree .node:hover {
+  color: #007bff; /* Subtle blue hover effect */
+}
+
+.tree .toggle-icon {
+  margin-right: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none; /* Prevent text selection */
+  color: #555;
+}
+
+.tree .toggle-icon:hover {
+  color: #000; /* Darker color on hover */
+}
+
+.tree .node-name {
+  font-weight: 500;
+}
+.menu-button {
+  background: #333;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  width: fit-content;
+}
+
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: -100%; /* Initially off-screen */
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  display: flex;
+  align-items: flex-start;
+  transition: left 0.3s ease; /* Smooth slide-in effect */
+}
+
+.menu-overlay.open {
+  left: 0; /* Slide in from the left */
+}
+
+.menu-container {
+  width: 75%; /* Slide menu width (adjust as needed) */
+  max-width: 400px;
+  height: 100%;
+  background: white;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  padding: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Menu Header */
+.menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #ddd;
+  background: #f8f8f8;
+  font-family: Arial, sans-serif;
+}
+
+.menu-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.close-button {
+  color: #edf0f1;
+  padding: 7px 10px;
+  background: linear-gradient(135deg, #590b74 35%, #298096 100%);
+  border: none;
+  border-radius: 50px;
+}
+
+/* Tree Styles */
+.tree-mobile {
+  padding: 20px;
+  font-size: 20px;
+}
+
+.tree-mobile ul {
+  list-style: none;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.tree-mobile .node {
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.tree-mobile .node:hover {
+  background-color: #f0f0f0;
+}
+
+.toggle-icon {
+  margin-right: 10px;
+  font-weight: bold;
+}
+

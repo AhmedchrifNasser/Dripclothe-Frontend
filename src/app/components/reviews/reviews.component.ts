@@ -5,6 +5,8 @@ import {ShopValidators} from "../../validators/shop-validators";
 import {Review} from "../../models/review";
 import {MatDialog} from "@angular/material/dialog";
 import {PopupComponent} from "../popup/popup.component";
+import {Router} from "@angular/router";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-reviews',
@@ -21,7 +23,9 @@ export class ReviewsComponent implements OnInit{
               private reviewService: ReviewService,
               private eRef: ElementRef,
               private renderer: Renderer2,
-              private dialogRef : MatDialog) {
+              private dialogRef : MatDialog,
+              private router: Router,
+              private titleService: Title) {
   }
 
   get firstName(){return this.reviewFormGroup.get('firstName');}
@@ -29,6 +33,7 @@ export class ReviewsComponent implements OnInit{
   get review(){return this.reviewFormGroup.get('review');}
 
   ngOnInit(): void {
+    this.titleService.setTitle("DripClothe - Reviews");
     this.reviewFormGroup = this.formBuilder.group({
       firstName: new FormControl("", [Validators.required, Validators.minLength(2),ShopValidators.notOnlyWhiteSpace]),
       lastName: new FormControl("", [Validators.required, Validators.minLength(2),ShopValidators.notOnlyWhiteSpace]),
@@ -57,10 +62,14 @@ export class ReviewsComponent implements OnInit{
     });
   }
   submitReview() {
-    console.log(this.reviewFormGroup)
     if(this.reviewFormGroup.invalid){
       this.typoIncorrect = true;
       this.reviewFormGroup.markAllAsTouched();
+      return;
+    }
+
+    if (this.starNumber == 0 || this.starNumber == undefined){
+      this.openDialog("You have to give star rating",false );
       return;
     }
 
@@ -75,10 +84,11 @@ export class ReviewsComponent implements OnInit{
           this.openDialog('Your review has been received, checked it below.',true);
           this.reviewFormGroup.reset();
           this.starNumber = 0;
-
+          this.router.navigateByUrl('', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['/reviews']);
+          });
         },
         error: err => {
-          //alert(`There was an error: ${err.message}`);
           this.openDialog(`There was an error: ${err.message}`,false );
         }
       }

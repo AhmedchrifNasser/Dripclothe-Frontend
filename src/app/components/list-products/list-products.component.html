@@ -1,0 +1,183 @@
+<!-- Top Navigation: Men/Women Buttons -->
+<div class="top-nav">
+  <div>
+    <button id="menButton" [class.active]="activeGender === 'men'"
+            (click)="toggleActive('men')">Men
+    </button>
+    <button id="womenButton" [class.active]="activeGender === 'women'"
+            (click)="toggleActive('women')">Women
+    </button>
+  </div>
+
+  <!--<div class="categories-menu">
+    <div (click)="loadCategories('Clothes')"> Clothes</div>
+    <span style="padding-right: 6%;padding-left: 6%;">|</span>
+    <div (click)="loadCategories('Shoes')"> Shoes</div>
+  </div>-->
+</div>
+
+<h2 style="margin-left: 10%" *ngIf="categories == undefined">Most trending now !!</h2>
+<div class="container">
+  <div class="tree">
+    <ul>
+      <li *ngFor="let node of treeData">
+        <!-- Render the node -->
+        <div class="node" (click)="toggleNode(node, $event)">
+        <span class="toggle-icon" *ngIf="node.children">
+        </span>
+          <span class="node-name" (click)="getProductByCategory(node.name)">{{ node.name }}</span>
+        </div>
+
+        <!-- Recursively render children -->
+        <ul *ngIf="node.children && node.expanded">
+          <li *ngFor="let child of node.children">
+            <!-- Recursive rendering -->
+            <div class="node" (click)="toggleNode(child, $event)">
+            <span class="toggle-icon" *ngIf="child.children">
+            </span>
+              <span class="node-name" (click)="getProductsBySubCategory(child.name)">{{ child.name }}</span>
+            </div>
+            <!-- Render deeper children -->
+            <ul *ngIf="child.children && child.expanded">
+              <li *ngFor="let subChild of child.children">
+                <div class="node" (click)="toggleNode(subChild, $event)">
+                <span class="toggle-icon" *ngIf="subChild.children">
+                </span>
+                  <span class="node-name" (click)="getProductsBySubCategory1(subChild.name)">{{ subChild.name }}</span>
+                </div>
+                <!-- Recursive rendering for any deeper layers -->
+                <ul *ngIf="subChild.children && subChild.expanded">
+                  <li *ngFor="let deepChild of subChild.children">
+                    <div class="node" (click)="toggleNode(deepChild, $event)">
+                    <span class="toggle-icon" *ngIf="deepChild.children">
+                    </span>
+                      <span class="node-name" (click)="getProductsBySubCategory2(deepChild.name)">{{ deepChild.name }}</span>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="mobile">
+    <button class="menu-button" (click)="toggleMenu()">☰ Categories</button>
+
+    <!-- Slide-Right Menu -->
+    <div class="menu-overlay" [class.open]="isMenuOpen">
+      <div class="menu-container">
+        <div class="menu-header">
+          <h3>Categories</h3>
+          <button class="close-button" (click)="toggleMenu()">&#10005;</button>
+        </div>
+
+        <!-- Tree Structure -->
+        <div class="tree-mobile">
+          <ul>
+
+            <li *ngFor="let node of treeData">
+              <div class="node" (click)="toggleNode(node, $event)">
+            <span class="toggle-icon" *ngIf="node.children">
+              {{ node.expanded ? '-' : '+' }}
+            </span>
+                <span class="node-name">{{ node.name }}</span>
+              </div>
+
+              <ul *ngIf="node.children && node.expanded">
+                <li *ngFor="let child of node.children">
+                  <div class="node" (click)="toggleNode(child, $event)">
+                <span class="toggle-icon" *ngIf="child.children">
+                  {{ child.expanded ? '-' : '+' }}
+                </span>
+                    <span class="node-name">{{ child.name }}</span>
+
+                  </div>
+                  <ul *ngIf="child.children && child.expanded">
+                    <li *ngFor="let subChild of child.children">
+                      <div class="node" (click)="toggleNode(subChild, $event)">
+                    <span class="toggle-icon" *ngIf="subChild.children">
+                      {{ subChild.expanded ? '-' : '+' }}
+                    </span>
+                        <span class="node-name">{{ subChild.name }}</span>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Sidebar: Products -->
+  <div class="products">
+    <div class="product">
+      <img src="https://via.placeholder.com/300x200" alt="Product 1">
+      <div class="product-details">
+        <h3>Cool T-shirt</h3>
+        <p class="product-description">Casual wear for everyday comfort.</p>
+        <p class="product-price">$19.99</p>
+      </div>
+    </div>
+
+    <div class="product">
+      <img src="https://via.placeholder.com/300x200" alt="Product 2">
+      <div class="product-details">
+        <h3>Stylish Jeans</h3>
+        <p class="product-description">Perfect fit for all body types.</p>
+        <p class="product-price">$39.99</p>
+      </div>
+    </div>
+
+    <div class="product">
+      <img src="https://via.placeholder.com/300x200" alt="Product 3">
+      <div class="product-details">
+        <h3>Running Shoes</h3>
+        <p class="product-description">Lightweight and breathable for performance.</p>
+        <p class="product-price">$59.99</p>
+      </div>
+    </div>
+
+    <div class="product">
+      <img src="assets/azealia-banks.jpg" alt="Product 4">
+      <div class="product-details">
+        <h3>Winter Jacket</h3>
+        <p class="product-description">Stay warmsssssssssssssss in styllk sdnf qsndfkljqsd nfqldskfn dlqsqsd sqde with
+          this jacket.</p>
+        <p class="product-price">$89.99</p>
+      </div>
+    </div>
+
+    <div class="product">
+      <img src="assets/azealia-banks.jpg" alt="Product 5">
+      <div class="product-details">
+        <h3>Leather Boots</h3>
+        <p>Perfect for cold weather and outdoor activities.</p>
+        <p class="product-price">$99.99</p>
+      </div>
+    </div>
+
+    <div class="product">
+      <img src="https://via.placeholder.com/300x200" alt="Product 6">
+      <div class="product-details">
+        <h3>Summer Sandals</h3>
+        <p>Light and breathable sandals for warm days.</p>
+        <p class="product-price">$29.99</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="pagination-buttons">
+  <button
+    *ngFor="let page of [].constructor(totalPages); let i = index"
+    [class.active]="i === currentPage"
+    (click)="goToPage(i)"
+  >
+    {{ i + 1 }}
+  </button>
+</div>

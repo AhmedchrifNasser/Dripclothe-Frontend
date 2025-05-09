@@ -1,6 +1,11 @@
 <div class="popup">
   <div [ngClass]="success ? 'success':'alert'"><br></div>
-  <h3>{{message}}</h3>
+  <div *ngIf="message == 'Cart is empty, add item to your cart first !!'" class="nav">
+    <img style="margin-left: 30px " src="assets/empty-cart.svg" alt="">
+    <h3 style="margin-top: 25px">{{message}}</h3>
+  </div>
+  <div class="Alert" *ngIf="message != 'Cart is empty, add item to your cart first !!'">
+    <h3 style="margin-top: 25px">{{message}}</h3>
+  </div>
   <button mat-dialog-close="">Close</button>
 </div>
-

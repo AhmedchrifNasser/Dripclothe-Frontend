@@ -1,0 +1,76 @@
+<div class="mainscreen">
+  <div class="leftside-image">
+    <img src="assets/azealia-banks.jpg" alt="">
+  </div>
+  <div class="rightside-content">
+    <div class="card">
+      <div style="text-align: center;
+    display: flex;align-items: center;align-content: space-around;flex-direction: column;}">
+        <h2>Track Your Order</h2>
+        <div class="custom-search" [hidden]="!showInputInterface">
+          <input
+            class="custom-search-input"
+            type="text"
+            [(ngModel)]="orderId"
+            placeholder="Enter your order number"
+          />
+          <button class="custom-search-botton" type="submit" (click)="fetchOrderStatus()">Track</button>
+        </div>
+
+      </div>
+      <div class="container" [class.hidden]="showInputInterface">
+        <div id="content4">
+          <div class="shipping-tracker">
+            <div *ngFor="let step of steps; let i = index" class="tracker-step" [class.completed]="step.completed">
+              <div class="step-icon">
+                <!-- Optional: Use Angular Material icons or another icon library -->
+                <mat-icon *ngIf="step.completed">check_circle</mat-icon>
+                <mat-icon *ngIf="!step.completed">radio_button_unchecked</mat-icon>
+              </div>
+              <div class="step-content">
+                <div class="step-label">{{ step.label }}</div>
+                <div class="step-description">{{ step.description }}</div>
+              </div>
+              <div class="step-line" *ngIf="i !== steps.length - 1"></div>
+            </div>
+          </div>
+
+        </div>
+        <div id="content5">
+          <h2>Order details:</h2>
+          <div class="username-container" *ngFor="let orderItem of orderItems">
+            <div class="profile-container">
+              <div class="profile-img">
+                <img [src]="orderItem.photo" alt="Profile Picture">
+              </div>
+              <div class="profile-description">
+                <span>
+                  Product : {{ orderItem.productName }}<br>
+                  Size : {{ orderItem.size }}<br>
+                  Color : {{ orderItem.color }}<br>
+                </span>
+              </div>
+            </div>
+          </div>
+          <h2>Shipping details:</h2>
+          <!--<div style=" display: flex;align-items: center;">
+            <mat-icon>timelapse</mat-icon>
+            <span>Between 7-10 work days</span>
+          </div> -->
+          <span style="padding-bottom: 3px">{{ order.customer.lastName }},{{ order.customer.firstName }}</span><br>
+          <span> {{ order.shippingAddress.street }}, {{ order.shippingAddress.city }}
+            ,{{ order.shippingAddress.zipCode }},{{ order.shippingAddress.country }}</span>
+          <h2>Order total:</h2>
+          <div style=" align-items: center;">
+            <h1 style="font-weight: 450">{{ order.totalPrice }}$ </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="rightside-image" style="z-index: 1">
+    <img style="padding-top: 10%"
+         src="assets/drake_savage.jpg">
+  </div>
+
+</div>

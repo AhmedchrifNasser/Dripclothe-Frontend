@@ -1,0 +1,187 @@
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  font-size: 36px;
+  margin-left: 53px;
+}
+.sidenav .title {
+  position: absolute;
+  top: 10px;
+  left: 5px;
+  color: white;
+  font-size: 26px;
+}
+.card {
+  display: flex;
+  margin: 6% 0 6% 0;
+}
+
+.card img {
+  width: auto;
+  height: auto;
+}
+input {
+  border: solid 1px rgba(0, 136, 169, 1);
+  padding: 10px;
+  border-radius: 5px;
+  margin-right: 4px;
+  display: inline-block;
+  width: 50%;
+
+  margin-top: 1rem;
+}
+
+.results {
+  display: grid;
+  column-gap: 3%;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 400px));
+  margin-top: 5%;
+  text-align: center;
+}
+
+.listing {
+  border-radius: 30px;
+  width: auto;
+  text-align: center;
+  height: 300px;
+  margin: 7%;
+
+  background-color: rgb(210 210 210);
+  animation: loading 4000ms infinite linear;
+}
+@keyframes loading {
+  0% {
+    background-color: rgb(210 210 210);
+  }
+
+  40% {
+    background-color: rgb(210 210 210);
+  }
+  70% {
+    background-color: rgb(165, 165, 165);
+  }
+  90% {
+    background-color: rgb(210 210 210);
+  }
+}
+
+.artisteHeader {
+  font-weight: 600;
+  font-size: 30px;
+  color: black;
+  margin-left: 70px;
+  margin-top: 20px;
+  padding-bottom: 20px;
+  background: transparent;
+}
+
+.listing-heading {
+  font-weight: 500;
+  font-size: 19px;
+  color: black;
+  text-align: center;
+  background: transparent;
+}
+
+.listing-photo {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 30px 30px 30px 30px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  cursor: pointer
+}
+
+.search {
+  text-align: center;
+}
+@media screen and (max-width: 450px) {
+  .artisteHeader {
+    margin-left: 8%;
+    font-weight: 600;
+    font-size: 23px;
+  }
+  .listArtiste{
+    margin-top: 5%;
+  }
+  .pagination-buttons{
+    margin-top: 10%;
+  }
+}
+@media screen and (min-width: 1000px) {
+  input {
+    width: 30%;
+
+  }
+
+  .results {
+    column-gap: 80px;
+    row-gap: 50px;
+    margin-left: 5%;
+    margin-top: 3%;
+  }
+
+  .listing-photo {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.footer {
+  margin-top: 5%;
+}
+
+@media (min-width: 500px) and (max-width: 868px) {
+  .results {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 499px) {
+
+  .results {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    margin-top: 0;
+  }
+}
+
+

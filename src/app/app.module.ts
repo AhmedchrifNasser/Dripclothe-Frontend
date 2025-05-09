@@ -7,7 +7,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatBadgeModule} from "@angular/material/badge";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatIconModule} from "@angular/material/icon";
 import {HttpClientModule} from "@angular/common/http";
@@ -25,6 +25,11 @@ import { PopupComponent } from './components/popup/popup.component';
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {AuthGuard} from "./auth.guard";
 import { AboutComponent } from './components/about/about.component';
+import {NgOptimizedImage} from "@angular/common";
+import { TrackStatusComponent } from './components/track-status/track-status.component';
+import { ListProductsComponent } from './components/list-products/list-products.component';
+import { ArtistesComponent } from './components/artistes/artistes.component';
+import { BannerComponent } from './components/banner/banner.component';
 
 @NgModule({
   declarations: [
@@ -41,20 +46,26 @@ import { AboutComponent } from './components/about/about.component';
     CarouselReviewsComponent,
     FooterComponent,
     PopupComponent,
-    AboutComponent
+    AboutComponent,
+    TrackStatusComponent,
+    ListProductsComponent,
+    ArtistesComponent,
+    BannerComponent
   ],
-    imports: [
-        BrowserModule,
-        HttpClientModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatBadgeModule,
-        ReactiveFormsModule,
-        MatAutocompleteModule,
-        MatIconModule,
-        MatStepperModule,
-        MatDialogModule
-    ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatBadgeModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    MatIconModule,
+    MatStepperModule,
+    MatDialogModule,
+    NgOptimizedImage,
+    FormsModule
+  ],
   providers: [ ],
   bootstrap: [AppComponent]
 })

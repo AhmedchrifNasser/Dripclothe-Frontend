@@ -42,9 +42,9 @@
   text-overflow: ellipsis;
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 7;
   -webkit-box-orient: vertical;
-  margin: 0 0 4.5rem 0;
+
   font-size: 1.3rem;
   line-height: 1.45;
   color: #333;
@@ -74,7 +74,6 @@
 }
 
 .main {
-  height: 60vh;
   display: flex;
 }
 

@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {CartItem} from "../models/cart-item";
 import {BehaviorSubject} from "rxjs";
+import {Coupon} from "../models/coupon";
 
 @Injectable({
   providedIn: 'root'
@@ -8,18 +9,40 @@ import {BehaviorSubject} from "rxjs";
 export class CartService {
   constructor() {
     let data = JSON.parse(this.storage.getItem('cartItems')!)
-    if(data != null){
+    if (data != null) {
       this.cartItems = data;
+
+      let persCoupon = JSON.parse(this.storage.getItem('coupon')!)
+      if (persCoupon != null){
+        this.coupon = (persCoupon);
+      }
+
+      let persShippingFees = this.storage.getItem('shippingFees')
+      if (persShippingFees != null){
+        this.shippingFees.next(+persShippingFees);
+      }
+
+      let genderSelected = this.storage.getItem('gender')
+      if (genderSelected != null){
+        this.genderSelected = genderSelected;
+      }else {
+        this.SetGenderSelected("women");
+        this.genderSelected ="women";
+      }
+
       this.computeCartTotals();
     }
-    this.totalPrice.subscribe((res)=> console.log(res));
+    this.totalPrice.subscribe();
   }
 
   cartItems: CartItem[] = [];
-
+  coupon: Coupon = new Coupon();
+    genderSelected !: string;
   totalPrice: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   totalQuantity: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   shippingFees: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  checked: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  FinalTotalPrice: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   storage: Storage = localStorage;
 
 
@@ -29,11 +52,7 @@ export class CartService {
     let existingCartItem = undefined;
 
     if (this.cartItems.length > 0) {
-      // find the item in the cart based on item id
-
-      existingCartItem = this.cartItems.find( tempCartItem => (tempCartItem.id === theCartItem.id) && (tempCartItem.size.id === theCartItem.size.id) && (tempCartItem.color.id === theCartItem.color.id));
-      console.log('existingCartItem');
-      console.log(existingCartItem);
+      existingCartItem = this.cartItems.find(tempCartItem => (tempCartItem.id === theCartItem.id) && (tempCartItem.size.id === theCartItem.size.id) && (tempCartItem.color.id === theCartItem.color.id));
       // check if we found it
       alreadyExistsInCart = (existingCartItem != undefined);
     }
@@ -41,8 +60,7 @@ export class CartService {
     if (alreadyExistsInCart) {
       // increment the quantity
       existingCartItem!.quantity++;
-    }
-    else {
+    } else {
       // just add the item to the array
       this.cartItems.push(theCartItem);
     }
@@ -51,10 +69,10 @@ export class CartService {
     this.computeCartTotals();
   }
 
-  removeCartItem(cartItem: CartItem){
+  removeCartItem(cartItem: CartItem) {
     const itemIndex = this.cartItems.findIndex(tempCartItem => tempCartItem.id == cartItem.id);
-    if(itemIndex > -1){
-      this.cartItems.splice(itemIndex,1);
+    if (itemIndex > -1) {
+      this.cartItems.splice(itemIndex, 1);
       this.computeCartTotals();
     }
   }
@@ -63,38 +81,44 @@ export class CartService {
 
     let totalPriceValue: number = 0.0;
     let totalQuantityValue: number = 0;
+    let totalShippingFee: number = 0;
     for (let currentCartItem of this.cartItems) {
-      totalPriceValue += currentCartItem.quantity * currentCartItem.unitPrice ;
+      totalPriceValue += currentCartItem.quantity * currentCartItem.unitPrice;
       totalQuantityValue += currentCartItem.quantity;
+      totalShippingFee += currentCartItem.shippingFee;
     }
 
-    // publish the new values ... all subscribers will receive the new data
     this.totalPrice.next(Number(totalPriceValue.toFixed(2)));
+    if ((this.coupon.value != 0) && (this.coupon.value != undefined)){
+      this.totalPrice.next(this.totalPrice.value - (this.totalPrice.value * this.coupon.value));
+    }
     this.totalQuantity.next(totalQuantityValue);
-    if(this.cartItems.length != 0)
-      this.shippingFees.next(Number(this.cartItems[0].shippingFee.toFixed(2)))
-    else
-      this.shippingFees.next(0)
-
-    // log cart data just for debugging purposes
-    //this.logCartData(totalPriceValue, totalQuantityValue);
-
-    //persist cart data
+    this.FinalTotalPrice.next(this.totalPrice.value + 2.0)
+    this.shippingFees.next(totalShippingFee);
     this.persistCartItems();
-    //this.logCartData(totalPriceValue,totalQuantityValue);
   }
-  persistCartItems(){
+
+  persistCartItems() {
     this.storage.setItem('cartItems', JSON.stringify(this.cartItems))
   }
-  logCartData(totalPriceValue: number, totalQuantityValue: number) {
 
-    console.log('Contents of the cart');
-    for (let tempCartItem of this.cartItems) {
-      const subTotalPrice = tempCartItem.quantity * tempCartItem.unitPrice;
-      console.log(`name: ${tempCartItem.name}, quantity=${tempCartItem.quantity}, unitPrice=${tempCartItem.unitPrice}, subTotalPrice=${subTotalPrice}`);
-    }
-
-    console.log(`totalPrice: ${totalPriceValue.toFixed(2)}, totalQuantity: ${totalQuantityValue}`);
-    console.log('----');
+  SetShippingFee(shippingFee: number) {
+    this.shippingFees.next(shippingFee);
+    this.storage.setItem('shippingFees', this.shippingFees.value.toString())
   }
+  SetFinalTotalPrice(finalTotalPrice: number) {
+    this.FinalTotalPrice.next(finalTotalPrice);
+  }
+  SetCoupon(coupon: Coupon){
+    this.coupon = coupon;
+    if(coupon.value == 0) {
+      this.storage.setItem('coupon', JSON.stringify(null));
+    } else {
+      this.storage.setItem('coupon', JSON.stringify(coupon));
+    }
+  }
+  SetGenderSelected(gender: string){
+    this.storage.setItem('gender', gender);
+  }
+
 }

@@ -1,36 +1,58 @@
 .mainscreen {
-  height: 80%;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  background-color: #DFDBE5;
-  background-image: url("src/assets/3063067.webp");
-  color: black;
-}
-.card {
-  width: 70%;
-  background: white;
-  position: relative;
-  align-self: center;
-  border-radius: 1.5rem;
-  box-shadow: 4px 3px 20px #3535358c;
+  height: 100vh; /* Full viewport height */
   display: flex;
   flex-direction: row;
-  margin-top: 1rem;
-  margin-bottom: 3rem;
+  background-color: black;
+  color: white;
+  overflow: hidden;
+  perspective: 1000px; /* Add perspective for 3D effect */
 }
-.rightside {
-  background-color: #ffffff;
-  width: 100%;
+.leftside-image {
+  /*background-image: url(""); Set the container size */
+  background-repeat: no-repeat;
+  width: 64%;
+  height: 92%; /* Adjust as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotateY(22deg);
   border-radius: 1.5rem;
-  padding: 0.5rem 2rem 1rem 3rem;
+  box-shadow: 4px 3px 20px #3535358c;
+  transition: transform 0.3s ease;
+  z-index: 1;
+  overflow: hidden; /* Ensures the image doesn’t overflow the container */
 }
-.rightside p {
+
+.leftside-image img {
+  width: 100%; /* Ensure the image scales to the container */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: cover; /* Ensures the image fills the container */
+}
+
+.rightside-content {
+  width: 40%; /* Take more space for the content */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  margin-left: -10%;
+}
+
+.card {
+  background: white;
+  border-radius: 1.5rem;
+  box-shadow: 4px 3px 20px #3535358c;
+  width: 80%;
+  padding: 2rem;
+}
+.rightside-content p {
   display: block;
   font-size: 1.1rem;
   font-weight: 450;
-  font-family: "Montserrat", sans-serif;
   margin-top: 1rem;
+  color: black;
 }
 
 .inputtext {
@@ -42,12 +64,11 @@
   font-size: 1.1rem;
   font-weight: 500;
   outline: none;
-  font-family: "Montserrat", sans-serif;
 }
-.card h2 {
+.card h2{
   font-weight: 580;
   font-size: 20px;
-  font-family: "Montserrat", sans-serif;
+  color: black;
 }
 
 .inputbox {
@@ -55,7 +76,6 @@
   padding: 0.5rem;
   border: 1.5px solid #ccc;
   border-radius: 0.3rem;
-  font-family: "Montserrat", sans-serif;
   font-size: 1.1rem;
   font-weight: 500;
   outline: none;
@@ -63,20 +83,17 @@
   color: #615a5a;
 }
 button {
-  background: linear-gradient(
-    135deg, #753370 0%, #298096 100%);
-  padding: 1rem;
+  background: linear-gradient(135deg, #590b74 35%, #298096 100%);
+  padding: 8px 11px 8px 11px;
   margin-top: 5%;
   border: none;
-  border-radius: 50px;
+  border-radius: 10px;
   color: white;
   font-weight: 500;
   font-size: 1.2rem;
-  width: 25%;
   letter-spacing: .11rem;
   outline: none;
   cursor: pointer;
-  font-family: "Montserrat", sans-serif;
 }
 
 .test{
@@ -84,15 +101,19 @@ button {
 }
 @media only screen and (max-width: 550px) {
   .card{
-    width: 100%;
+    width: 80%;
   }
   .mainscreen{
     height: 100%;
   }
-  .button{
-    width: 50%;
-  }
   .inputbox{
     width: 70%;
+  }
+  .leftside-image{
+    display: none;
+  }
+  .rightside-content{
+    width: 100%;
+    margin-left: 0%;
   }
 }

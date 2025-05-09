@@ -14,13 +14,16 @@ import {PopupComponent} from "../popup/popup.component";
 import {MatDialog} from "@angular/material/dialog";
 import {Customer} from "../../models/customer";
 import {Address} from "../../models/address";
+import {Title} from "@angular/platform-browser";
+import {Coupon} from "../../models/coupon";
+import {CouponService} from "../../services/coupon.service";
 
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css']
 })
-export class CheckoutComponent implements OnInit{
+export class CheckoutComponent implements OnInit {
   orientation: StepperOrientation = 'horizontal';
   paymentFormGroup!: FormGroup;
   customerFormGroup!: FormGroup;
@@ -28,15 +31,16 @@ export class CheckoutComponent implements OnInit{
   totalPrice: number = 0;
   totalQuantity: number = 0;
   shippingFee: number = 0;
-
-
-  stripe = Stripe(environment.stripePublishableKey);
+  stripe: any;
+  purchase = new Purchase();
 
   constructor(private formBuilder: FormBuilder,
               private cartService: CartService,
+              private couponService: CouponService,
               private checkoutService: CheckoutService,
               private router: Router,
-              private dialogRef : MatDialog) {
+              private dialogRef: MatDialog,
+              private titleService: Title) {
   }
 
   get firstName() {
@@ -66,13 +70,16 @@ export class CheckoutComponent implements OnInit{
   get shippingAddressZipCode() {
     return this.shippingFormGroup.get('zipCode')
   }
+
   ngOnInit(): void {
     //this.setupStripPaymentForm();
+    this.stripe = Stripe(environment.stripePublishableKey);
+    this.titleService.setTitle("DripClothe - Checkout");
     this.reviewCartDetails();
     this.customerFormGroup = this.formBuilder.group({
       firstName: new FormControl("", [Validators.required, Validators.minLength(3), ShopValidators.notOnlyWhiteSpace]),
       lastName: new FormControl("", [Validators.required, Validators.minLength(3), ShopValidators.notOnlyWhiteSpace]),
-      email: new FormControl('', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]
+      email: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,15}$')]
       )
     });
     this.shippingFormGroup = this.formBuilder.group({
@@ -81,9 +88,7 @@ export class CheckoutComponent implements OnInit{
       country: new FormControl("", [Validators.required]),
       zipCode: new FormControl("", [Validators.required, Validators.minLength(3), ShopValidators.notOnlyWhiteSpace]),
     });
-    this.paymentFormGroup = this.formBuilder.group({
-
-    });
+    this.paymentFormGroup = this.formBuilder.group({});
 
     this.VerticalOrHorizontalStepper();
   }
@@ -96,19 +101,57 @@ export class CheckoutComponent implements OnInit{
       this.customerFormGroup.markAllAsTouched();
       return;
     }
-
+    this.typoIncorrect = false;
+    if (this.cartService.coupon.value != 0) {
+      console.log(this.cartService.coupon)
+      this.couponService.verifyCouponUsed(this.cartService.coupon, this.customerFormGroup.get('email')?.value).subscribe(
+        (res) => {
+          if (res) {
+            this.openDialog(`You used this coupon ( ${this.cartService.coupon.name} ),the total price will go back to the original value `, false);
+            this.cartService.SetCoupon(new Coupon());
+            this.cartService.computeCartTotals();
+          }
+        }
+      )
+    }
   }
 
   verifyAddress() {
     if (this.shippingFormGroup.invalid) {
+      this.typoIncorrect = true;
       this.shippingFormGroup.markAllAsTouched();
       return;
     }
-    this.setupStripPaymentForm(this.customerFormGroup.value, this.shippingFormGroup.value);
+    this.typoIncorrect = false;
+    let order = new Order();
+    order.totalPrice = this.totalPrice;
+    order.totalQuantity = this.totalQuantity;
+    order.shippingFee = this.shippingFee;
+
+    const cartItems = this.cartService.cartItems;
+
+    let orderItems: OrderItem[] = cartItems.map(tempCartItem => new OrderItem(tempCartItem));
+
+    this.purchase.customer = this.customerFormGroup.value;
+    this.purchase.shippingAddress = this.shippingFormGroup.value;
+    this.purchase.order = order;
+    this.purchase.orderItems = orderItems;
+
+    this.checkoutService.placeOrder(this.purchase).subscribe(
+      {
+        next: response => {
+          this.purchase.order.orderTrackingNumber = response.orderTrackingNumber;
+          this.setupStripPaymentForm(this.customerFormGroup.value, this.shippingFormGroup.value, response.orderTrackingNumber);
+        },
+        error: err => {
+          this.openDialog(`There was an error: ${err.message}`, false)
+        }
+      }
+    )
   }
 
   reviewCartDetails() {
-    this.cartService.totalPrice.subscribe(
+    this.cartService.FinalTotalPrice.subscribe(
       totalPrice => {
         this.cartService.shippingFees.subscribe(
           (shippingfee) => {
@@ -127,48 +170,33 @@ export class CheckoutComponent implements OnInit{
       return;
     }
 
-    let order = new Order();
-    order.totalPrice = this.totalPrice;
-    order.totalQuantity = this.totalQuantity;
-    order.shippingFee = this.shippingFee;
-
-    const cartItems = this.cartService.cartItems;
-
-    let orderItems: OrderItem[] = cartItems.map(tempCartItem => new OrderItem(tempCartItem));
-
-    let purchase = new Purchase();
-
-    purchase.customer = this.customerFormGroup.value;
-    purchase.shippingAddress = this.shippingFormGroup.value;
-    purchase.order = order;
-    purchase.orderItems = orderItems;
-    console.log("Purchase")
-    console.log(purchase)
     if (!this.paymentFormGroup.invalid) {
       this.stripe.confirmPayment({
         elements: this.paymentElement.elements,
         confirmParams: {
           // Make sure to change this to your payment completion page
 
-        },redirect: 'if_required',
+        }, redirect: 'if_required',
       })
         .then((result: any) => {
           if (result.error) {
             //inform the customer there was an error
             alert(`There was an error: ${result.error.message}`);
           } else {
-            this.checkoutService.placeOrder(purchase).subscribe(
-              {
-                next: response => {
-                  this.createReceipt(purchase);
-                  this.openDialog("Your purchase completed with success, your receipt is downloading in the mean time. \nYou will also receive all the receipts is your mail.", true)
-                  this.resetCart();
-                },
-                error: err => {
-                  this.openDialog("There was an error",false)
+            if(this.cartService.coupon.value != 0) {
+              this.couponService.registerCoupon(this.cartService.coupon, this.customerFormGroup.get('email')?.value).subscribe(
+                {
+                  next: response => {
+                  },
+                  error: err => {
+                    //this.openDialog(`There was an error: ${err.message}`, false)
+                  }
                 }
-              }
-            )
+              )
+            }
+            this.createReceipt(this.purchase);
+            this.openDialog("Your purchase completed with success, your receipt is downloading in the mean time. \nYou will also receive all the receipts is your mail.", true)
+            this.resetCart();
           }
         });
     } else {
@@ -177,40 +205,15 @@ export class CheckoutComponent implements OnInit{
     }
   }
 
-  resetCart() {
-    this.cartService.cartItems = [];
-    this.cartService.totalPrice.next(0);
-    this.cartService.totalQuantity.next(0);
-    this.cartService.shippingFees.next(0);
-    this.cartService.persistCartItems();
-
-    this.customerFormGroup.reset();
-    this.shippingFormGroup.reset();
-    this.paymentFormGroup.reset();
-
-    this.router.navigateByUrl("");
-
-  }
-
-  @HostListener('window:resize', ['$event'])
-  VerticalOrHorizontalStepper() {
-    if (window.innerWidth < 800)
-      this.orientation = 'vertical';
-  }
-  paymentElement!: any;
-  paymentElementOptions = {
-    layout: "tabs",
-  };
-
-  setupStripPaymentForm(customer: Customer, address: Address) {
+  setupStripPaymentForm(customer: Customer, address: Address, orderNumber: String) {
     var elements = this.stripe.elements();
-    console.log(this.totalPrice)
-    let paymentInfo = new PaymentInfo(this.totalPrice*100,"USD",customer,address)
+    let paymentInfo = new PaymentInfo(this.totalPrice * 100, "USD", customer, address, orderNumber,this.cartService.cartItems.map(tempCartItem => new OrderItem(tempCartItem)))
     this.checkoutService.createPaymentIntent(paymentInfo).subscribe(
       (paymentIntentResponse) => {
-        console.log(paymentIntentResponse.client_secret)
-        elements = this.stripe.elements({ clientSecret :paymentIntentResponse.client_secret });
-        console.log(elements)
+        console.log('paymentIntentResponse');
+        console.log(paymentIntentResponse);
+        elements = this.stripe.elements({clientSecret: paymentIntentResponse.token});
+        //elements = this.stripe.elements({clientSecret: paymentIntentResponse.client_secret});
         this.paymentElement = elements.create("payment", this.paymentElementOptions);
         this.paymentElement.mount("#payment-element");
         this.paymentElement.elements = elements;
@@ -219,26 +222,54 @@ export class CheckoutComponent implements OnInit{
     );
   }
 
-  createReceipt(purchase: Purchase){
+  createReceipt(purchase: Purchase) {
     //let newVariable: any = window.navigator;
     this.checkoutService.createReceipt(purchase).subscribe(
       res => {
-        console.log(res.headers.get('content-disposition'))
         const blob = new Blob([res.body], {type: 'application/pdf'});
         const data = window.URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = data;
         link.download = 'receipt.pdf';
-        link.dispatchEvent(new MouseEvent('click', {bubbles:true, cancelable: true, view:window}));
+        link.dispatchEvent(new MouseEvent('click', {bubbles: true, cancelable: true, view: window}));
       }
     )
   }
-  openDialog(msg: string,success: boolean){
-    this.dialogRef.open(PopupComponent,{
+
+  openDialog(msg: string, success: boolean) {
+    this.dialogRef.open(PopupComponent, {
       data: {
-        message : msg,
-        success : success
+        message: msg,
+        success: success
       }
     });
   }
+
+  resetCart() {
+    this.cartService.cartItems = [];
+    this.cartService.totalPrice.next(0);
+    this.cartService.totalQuantity.next(0);
+    this.cartService.checked.next(false);
+    this.cartService.SetShippingFee(0);
+    this.cartService.SetCoupon(new Coupon());
+    this.cartService.persistCartItems();
+
+    this.customerFormGroup.reset();
+    this.shippingFormGroup.reset();
+    this.paymentFormGroup.reset();
+
+    this.router.navigate(['/']);
+
+  }
+
+  @HostListener('window:resize', ['$event'])
+  VerticalOrHorizontalStepper() {
+    if (window.innerWidth < 800)
+      this.orientation = 'vertical';
+  }
+
+  paymentElement!: any;
+  paymentElementOptions = {
+    layout: "tabs",
+  };
 }

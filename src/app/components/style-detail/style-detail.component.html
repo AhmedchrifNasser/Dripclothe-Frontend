@@ -1,32 +1,48 @@
-<app-header></app-header>
-
-<div class="container">
-  <div id="content4">
+<!--<div class="container">
+  <div id="content4" *ngIf="products.length > 0">
     <img class="style-photo" [src]="products[0].style.photo">
   </div>
   <div id="content5">
     <div class="username-container" *ngFor="let product of products">
-      <a [routerLink]="['/product', product.id]">
+      <a [routerLink]="['/product', product.id, product.name]">
         <div class="profile-container">
           <div class="profile-img">
-            <img [src]="product.style.photo" alt="Profile Picture">
+            <img [src]="product.photos[0].photoUrl" alt="">
           </div>
           <div class="profile-description">
-            <p class="user-title">{{product.name}}</p>
+            <p class="user-title">{{ product.name }}</p>
           </div>
         </div>
       </a>
     </div>
   </div>
   <div id="content1">
-    <div class="text-description">
-      Choose the clothes that we could find of
-      the style that you liked. that being said ahmed said that you will go to the store you know
+    <div class="text-description" *ngIf="products.length > 0">
+      {{ products[0].style.description }}
+    </div>
+  </div>
+</div>-->
+
+<div class="fashion-container">
+  <!-- Left Section: Model -->
+  <div class="model-section">
+    <img [src]="products[0].style.photo" alt="Fashion Model" class="model-img">
+    <div class="model-description">
+      <h2>Streetwear Elegance</h2>
+      <p> {{ products[0].style.description }}</p>
     </div>
   </div>
 
+  <!-- Right Section: Products Worn by Model -->
+  <div class="products-section">
+    <h2>Get the Look</h2>
+    <div class="product-cards">
+      <div class="product-card" *ngFor="let product of products">
+        <a [routerLink]="['/product', product.id, product.name]">
+          <img [src]="product.photos[0].photoUrl" alt="Jacket">
+          <h3>{{ product.name }}</h3>
+        </a>
+      </div>
+    </div>
+  </div>
 </div>
-<div class="footer">
-  <app-footer></app-footer>
-</div>
-

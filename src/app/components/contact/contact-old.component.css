@@ -1,0 +1,93 @@
+.mainscreen {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #DFDBE5;
+  background-image: url("src/assets/3063067.webp");
+  color: black;
+}
+.card {
+  width: 70%;
+  background: white;
+  position: relative;
+  align-self: center;
+  border-radius: 1.5rem;
+  box-shadow: 4px 3px 20px #3535358c;
+  display: flex;
+  flex-direction: row;
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+}
+.rightside {
+  background-color: #ffffff;
+  width: 100%;
+  border-radius: 1.5rem;
+  padding: 0.5rem 2rem 1rem 3rem;
+}
+.rightside p {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 450;
+  font-family: "Montserrat", sans-serif;
+  margin-top: 1rem;
+}
+
+.inputtext {
+  color: #615a5a;
+  width: 80%;
+  padding: 0.5rem;
+  border: 1.5px solid #ccc;
+  border-radius: 0.3rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  outline: none;
+  font-family: "Montserrat", sans-serif;
+}
+.card h2 {
+  font-weight: 580;
+  font-size: 20px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.inputbox {
+  color: #030303;
+  padding: 0.5rem;
+  border: 1.5px solid #ccc;
+  border-radius: 0.3rem;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  outline: none;
+  width: 50%;
+  color: #615a5a;
+}
+button {
+  background: linear-gradient(135deg, #590b74 35%, #298096 100%);
+  padding: 1rem;
+  margin-top: 5%;
+  border: none;
+  border-radius: 50px;
+  color: white;
+  font-weight: 500;
+  font-size: 1.2rem;
+
+  letter-spacing: .11rem;
+  outline: none;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+}
+
+.test{
+  border-color: red;
+}
+@media only screen and (max-width: 550px) {
+  .card{
+    width: 100%;
+  }
+  .mainscreen{
+    height: 100%;
+  }
+  .inputbox{
+    width: 70%;
+  }
+}

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
 import { Observable } from 'rxjs';
 import {Permissions} from "./models/permissions";
 import {CartService} from "./services/cart.service";
@@ -9,14 +9,38 @@ import {CartService} from "./services/cart.service";
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private permissions: Permissions,
-              private cartService: CartService) {
+  constructor(private cartService: CartService,
+              private router: Router) {
   }
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    const guardType = route.data['guard'];
 
-    return true;// this.permissions.canGoToRoute(this.cartService.cartItems);
+    if (guardType === 'cart') {
+      return this.canActivateForCartDetails();
+    } else if (guardType === 'checkout') {
+      return this.canActivateForCheckout();
+    }
+
+    return false;
+
+  }
+
+  private canActivateForCartDetails(): boolean {
+    if (this.cartService.cartItems.length == 0) {
+      this.router.navigate(['/']); // Redirect to home if not authenticated
+      return false;
+    }
+    return true;
+  }
+
+  private canActivateForCheckout(): boolean {
+    if(!this.cartService.checked.value){
+      this.router.navigate(['/']); // Redirect to home if not authenticated
+      return false;
+    }
+    return true;
   }
 
 }
